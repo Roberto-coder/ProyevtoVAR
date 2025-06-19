@@ -4,31 +4,26 @@ using UnityEngine;
 public class VRPlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
-    public float walkSpeed = 2.0f;
-    public float runSpeed = 4.0f;
-    public float rotationSpeed = 90.0f;
+    public float walkSpeed = 2f, runSpeed = 4f;
+    public float rotationSpeed = 90f;
     public Transform cameraTransform;
 
     [Header("Gravedad")]
     public float gravity = -9.81f;
-    public float groundedOffset = -0.14f;
     public LayerMask groundLayer;
 
     [Header("Audio")]
     public AudioSource footstepAudio;
-    public float stepIntervalWalk = 0.6f;
-    public float stepIntervalRun = 0.3f;
+    public float stepIntervalWalk = 0.6f, stepIntervalRun = 0.3f;
 
     private CharacterController controller;
-    private float verticalVelocity;
-    private float stepTimer = 0f;
-    private bool isMoving = false;
+    private float verticalVelocity, stepTimer;
+    private bool isMoving;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        if (footstepAudio == null)
-            Debug.LogWarning("Falta AudioSource asignado.");
+        if (!footstepAudio) Debug.LogWarning("Asignar AudioSource para footsteps.");
     }
 
     void Update()
@@ -38,67 +33,58 @@ public class VRPlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        float rotateInput = Input.GetAxis("Mouse X");
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        float rotH = Input.GetAxis("RightStickHorizontal");
+        float rotV = Input.GetAxis("RightStickVertical");
 
-        bool isRunning = Input.GetButton("Fire3"); // Shift en teclado, botón A en gamepad
+        // Rotación horizontal del jugador
+        transform.Rotate(Vector3.up, rotH * rotationSpeed * Time.deltaTime);
+
+        // Rotación vertical de la cámara con límite
+        Vector3 camEuler = cameraTransform.localEulerAngles;
+        camEuler.x -= rotV * rotationSpeed * Time.deltaTime;
+        camEuler.x = (camEuler.x > 180 ? camEuler.x - 360 : camEuler.x);
+        camEuler.x = Mathf.Clamp(camEuler.x, -80f, 80f);
+        cameraTransform.localEulerAngles = camEuler;
+
+        bool isRunning = Input.GetButton("Fire3");
         float speed = isRunning ? runSpeed : walkSpeed;
 
-        // Movimiento en dirección de la cámara
-        Vector3 direction = cameraTransform.forward * vertical + cameraTransform.right * horizontal;
-        direction.y = 0f;
-        direction.Normalize();
+        Vector3 dir = cameraTransform.forward * v + cameraTransform.right * h;
+        dir.y = 0; dir.Normalize();
 
-        Vector3 move = direction * speed;
+        if (IsGrounded()) verticalVelocity = -1f;
+        else verticalVelocity += gravity * Time.deltaTime;
 
-        // Aplicar rotación con joystick derecho
-        transform.Rotate(Vector3.up, rotateInput * rotationSpeed * Time.deltaTime);
-
-        // Aplicar gravedad si no está tocando el suelo
-        if (IsGrounded())
-        {
-            verticalVelocity = -1f; // lo mantiene pegado al suelo
-        }
-        else
-        {
-            verticalVelocity += gravity * Time.deltaTime;
-        }
-
+        Vector3 move = dir * speed;
         move.y = verticalVelocity;
 
         controller.Move(move * Time.deltaTime);
 
-        isMoving = direction.magnitude > 0.1f && IsGrounded();
-
+        isMoving = dir.magnitude > 0.1f && IsGrounded();
         HandleFootsteps(isRunning);
     }
 
     void HandleFootsteps(bool isRunning)
     {
-        if (footstepAudio == null) return;
-
+        if (!footstepAudio) return;
         if (isMoving)
         {
             stepTimer -= Time.deltaTime;
-
             if (stepTimer <= 0f)
             {
                 footstepAudio.Play();
                 stepTimer = isRunning ? stepIntervalRun : stepIntervalWalk;
             }
         }
-        else
-        {
-            stepTimer = 0f;
-        }
+        else stepTimer = 0f;
     }
 
     bool IsGrounded()
     {
-        // Cast hacia abajo para detectar si toca el suelo
-        Vector3 rayStart = transform.position + Vector3.up * 0.1f;
-        Debug.DrawRay(rayStart, Vector3.down * 0.3f, Color.green);
-        return Physics.Raycast(rayStart, Vector3.down, 0.3f, groundLayer);
+        Vector3 start = transform.position + Vector3.up * 0.1f;
+        Debug.DrawRay(start, Vector3.down * 0.3f, Color.green);
+        return Physics.Raycast(start, Vector3.down, 0.3f, groundLayer);
     }
 }
