@@ -1,4 +1,6 @@
 using UnityEngine;
+using Oculus.Platform; // Solo si ya tienes Oculus Integration
+using Oculus.Platform.Models;
 
 [RequireComponent(typeof(CharacterController))]
 public class VRPlayerMovement : MonoBehaviour
@@ -33,33 +35,37 @@ public class VRPlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        float rotH = Input.GetAxis("RightStickHorizontal");
-        float rotV = Input.GetAxis("RightStickVertical");
+        // Entrada de movimiento (joystick izquierdo vía XR)
+        float h = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
+        float v = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
 
-        // Rotación horizontal del jugador
+        // Entrada de rotación (joystick derecho)
+        Vector2 rot = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
+        float rotH = rot.x;
+        float rotV = rot.y;
+
+        // Rotación horizontal del jugador (yaw)
         transform.Rotate(Vector3.up, rotH * rotationSpeed * Time.deltaTime);
 
-        // Rotación vertical de la cámara con límite
+        // Rotación vertical de la cámara (pitch), con límite
         Vector3 camEuler = cameraTransform.localEulerAngles;
         camEuler.x -= rotV * rotationSpeed * Time.deltaTime;
         camEuler.x = (camEuler.x > 180 ? camEuler.x - 360 : camEuler.x);
         camEuler.x = Mathf.Clamp(camEuler.x, -80f, 80f);
         cameraTransform.localEulerAngles = camEuler;
 
-        bool isRunning = Input.GetButton("Fire3");
+        // Velocidad según si corre (Apretar botón A)
+        bool isRunning = OVRInput.Get(OVRInput.Button.One);
         float speed = isRunning ? runSpeed : walkSpeed;
 
         Vector3 dir = cameraTransform.forward * v + cameraTransform.right * h;
-        dir.y = 0; dir.Normalize();
+        dir.y = 0f;
+        dir.Normalize();
 
         if (IsGrounded()) verticalVelocity = -1f;
         else verticalVelocity += gravity * Time.deltaTime;
 
-        Vector3 move = dir * speed;
-        move.y = verticalVelocity;
-
+        Vector3 move = dir * speed + Vector3.up * verticalVelocity;
         controller.Move(move * Time.deltaTime);
 
         isMoving = dir.magnitude > 0.1f && IsGrounded();

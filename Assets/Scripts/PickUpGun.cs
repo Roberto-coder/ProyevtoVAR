@@ -6,9 +6,13 @@ public class PickUpGun : MonoBehaviour
     Transform controller;
     public static bool pickedUp = false;
 
+    public string targetTag = "Destructible";
+    public int maxHits = 3;
+    int hitCount = 0;
+
     void Start()
     {
-        startTrans = new GameObject();
+        startTrans = new GameObject("StartPosition");
         startTrans.transform.position = transform.position;
         startTrans.transform.rotation = transform.rotation;
     }
@@ -22,16 +26,29 @@ public class PickUpGun : MonoBehaviour
         }
         else
         {
+            transform.SetParent(null);
             transform.position = startTrans.transform.position;
             transform.rotation = startTrans.transform.rotation;
-            transform.SetParent(null);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        pickedUp = true;
-        controller = other.transform;
-        transform.SetParent(controller);
+        if (!pickedUp)
+        {
+            pickedUp = true;
+            controller = other.transform;
+            transform.SetParent(controller);
+        }
+
+        // Registro de impactos en objetos específicos
+        if (other.CompareTag(targetTag))
+        {
+            hitCount++;
+            if (hitCount >= maxHits)
+                Destroy(other.gameObject);
+        }
     }
 }
+
+
