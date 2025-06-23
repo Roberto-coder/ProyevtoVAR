@@ -2,12 +2,17 @@ using UnityEngine;
 
 public class PickUpGun : MonoBehaviour
 {
+    public enum ToolType { Desarmador, Martillo, Soplete }
+    public ToolType toolType;
+
+    [Space]
+    public int maxHits = 3;
+    public int metalGain = 100;
+    public int componentGain = 0;
+
     GameObject startTrans;
     Transform controller;
-    public static bool pickedUp = false;
-
-    public string targetTag = "Destructible";
-    public int maxHits = 3;
+    bool isPicked = false;
     int hitCount = 0;
 
     void Start()
@@ -19,10 +24,11 @@ public class PickUpGun : MonoBehaviour
 
     void LateUpdate()
     {
-        if (pickedUp && controller != null)
+        if (isPicked && controller != null)
         {
-            transform.position = controller.position;
-            transform.rotation = controller.rotation;
+            transform.SetParent(controller);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
         }
         else
         {
@@ -32,23 +38,34 @@ public class PickUpGun : MonoBehaviour
         }
     }
 
+    public bool IsPicked() => isPicked;
+
+    public void OnPickup(Transform parent)
+    {
+        isPicked = true;
+        controller = parent;
+        hitCount = 0;
+    }
+
+    public void OnDrop()
+    {
+        isPicked = false;
+        controller = null;
+        transform.position = startTrans.transform.position;
+        transform.rotation = startTrans.transform.rotation;
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (!pickedUp)
-        {
-            pickedUp = true;
-            controller = other.transform;
-            transform.SetParent(controller);
-        }
-
-        // Registro de impactos en objetos específicos
-        if (other.CompareTag(targetTag))
+        if (isPicked && (other.CompareTag("metal") || other.CompareTag("electronico")))
         {
             hitCount++;
             if (hitCount >= maxHits)
+            {
+                ResourceManager.AddResources(metalGain, componentGain);
                 Destroy(other.gameObject);
+                hitCount = 0;
+            }
         }
     }
 }
-
-

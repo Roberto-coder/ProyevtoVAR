@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Suckable
   - Destructible
+  - eletronico
+  - metal
+  - plastico
+  - electronico
+  - PlayerHand
   layers:
   - Default
   - TransparentFX
