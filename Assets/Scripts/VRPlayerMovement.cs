@@ -23,62 +23,68 @@ public class VRPlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        if (!footstepAudio) Debug.LogWarning("Asignar AudioSource para footsteps.");
+        if (!footstepAudio) Debug.LogWarning("Asigna AudioSource para footsteps.");
     }
 
     void Update()
     {
         HandleMovement();
+        HandleFootsteps();
     }
 
     void HandleMovement()
     {
+        // Lectura de ejes del Xbox (configurados en Input Manager)
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         float rotH = Input.GetAxis("RightStickHorizontal");
         float rotV = Input.GetAxis("RightStickVertical");
 
-        // Rotación horizontal del jugador
+        // Rotación en yaw (giro horizontal del personaje)
         transform.Rotate(Vector3.up, rotH * rotationSpeed * Time.deltaTime);
 
-        // Rotación vertical de la cámara con límite
-        Vector3 camEuler = cameraTransform.localEulerAngles;
-        camEuler.x -= rotV * rotationSpeed * Time.deltaTime;
-        camEuler.x = (camEuler.x > 180 ? camEuler.x - 360 : camEuler.x);
-        camEuler.x = Mathf.Clamp(camEuler.x, -80f, 80f);
-        cameraTransform.localEulerAngles = camEuler;
+        // Pitch de cámara (mirar arriba/abajo)
+        Vector3 e = cameraTransform.localEulerAngles;
+        e.x = Mathf.Clamp(e.x - rotV * rotationSpeed * Time.deltaTime, -80f, 80f);
+        cameraTransform.localEulerAngles = e;
 
-        bool isRunning = Input.GetButton("Fire3");
+        // Determina si está corriendo
+        bool isRunning = Input.GetButton("Fire3"); // Shift o botón A
         float speed = isRunning ? runSpeed : walkSpeed;
 
-        Vector3 dir = cameraTransform.forward * v + cameraTransform.right * h;
-        dir.y = 0; dir.Normalize();
+        // Movimiento horizontal relativo a cámara
+        Vector3 dir = (cameraTransform.forward * v + cameraTransform.right * h);
+        dir.y = 0;
+        dir.Normalize();
 
+        // Gravedad aplicada si no está en el suelo
         if (IsGrounded()) verticalVelocity = -1f;
         else verticalVelocity += gravity * Time.deltaTime;
 
-        Vector3 move = dir * speed;
-        move.y = verticalVelocity;
-
+        Vector3 move = dir * speed + Vector3.up * verticalVelocity;
         controller.Move(move * Time.deltaTime);
 
         isMoving = dir.magnitude > 0.1f && IsGrounded();
-        HandleFootsteps(isRunning);
     }
 
-    void HandleFootsteps(bool isRunning)
+    void HandleFootsteps()
     {
         if (!footstepAudio) return;
+
         if (isMoving)
         {
             stepTimer -= Time.deltaTime;
             if (stepTimer <= 0f)
             {
-                footstepAudio.Play();
-                stepTimer = isRunning ? stepIntervalRun : stepIntervalWalk;
+                
+                footstepAudio.PlayOneShot(footstepAudio.clip);
+                stepTimer = Input.GetButton("Fire3") ? stepIntervalRun : stepIntervalWalk;
             }
         }
-        else stepTimer = 0f;
+        else
+        {
+            stepTimer = 0f;
+        }
     }
 
     bool IsGrounded()

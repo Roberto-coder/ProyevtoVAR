@@ -13,7 +13,7 @@ public class TransformableObject : MonoBehaviour
 
     void Update()
     {
-        if (playerNear && Input.GetKeyDown(KeyCode.JoystickButton0)) // boton A en Quest
+        if (playerNear && OVRInput.GetDown(OVRInput.Button.One)) // boton A en Quest
         {
             if (ResourceManager.TrySpendResources(requiredMetal, requiredComponents))
             {
