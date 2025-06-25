@@ -4,6 +4,7 @@ public class ToolManager : MonoBehaviour
 {
     public GameObject[] toolObjects; // GameObjects que contienen los scripts
     private ToolI[] tools;
+    public Transform controller;
     private int currentToolIndex = 0;
 
     void Start()
@@ -14,16 +15,18 @@ public class ToolManager : MonoBehaviour
             tools[i] = toolObjects[i].GetComponent<ToolI>();
             toolObjects[i].SetActive(i == currentToolIndex);
         }
+        transform.SetParent(controller);
+        transform.localPosition = Vector3.zero;
     }
 
     void Update()
     {
         // Comienza a usar
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(KeyCode.JoystickButton2))
             tools[currentToolIndex].use();
         
         // Termina de usar
-        if(Input.GetButtonUp("Fire1"))
+        if(Input.GetKeyUp(KeyCode.JoystickButton2))
         {
             tools[currentToolIndex].stopUse(); // Aquí podrías definir un método para detener la acción si es necesario
         }

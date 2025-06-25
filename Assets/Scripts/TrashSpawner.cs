@@ -5,7 +5,7 @@ public class TrashSpawner : MonoBehaviour
     [Header("Prefab de basura")]
     public GameObject[] trashPrefabs;
 
-    [Header("Rango de generación")]
+    [Header("Rango de generaciï¿½n")]
     public Vector3 areaCenter = Vector3.zero;
     public Vector3 areaSize = new Vector3(50, 0, 50);
 
