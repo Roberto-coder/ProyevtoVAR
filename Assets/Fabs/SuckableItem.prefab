@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7480634169007403662}
   - component: {fileID: 5278478152627804411}
   - component: {fileID: 2213221083960819316}
-  - component: {fileID: 241882185964345278}
+  - component: {fileID: 9075993755832950866}
   m_Layer: 3
   m_Name: SuckableItem
   m_TagString: Suckable
@@ -114,7 +114,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &2213221083960819316
 MonoBehaviour:
@@ -131,23 +131,22 @@ MonoBehaviour:
   itemType: 0
   itemWeight: 1
   itemValue: 10
-  meshHolder: {fileID: 0}
   canVariants:
-  - {fileID: 8739603187252021473, guid: d8ea93d2d4757e444a5349f4bc849128, type: 3}
-  - {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 295543366600241890, guid: cd8c7024c8812e44ebf0d8443e27721e, type: 3}
+  - {fileID: 3564632919824148345, guid: 30858ef0644983d49814b826a7d53d39, type: 3}
   bottleVariants:
-  - {fileID: 466699329910337463, guid: 3d33286af98131944a819435ab125bb6, type: 3}
-  - {fileID: 2929243948094743070, guid: e261327e0316a2c4d8b04524bfe18d1d, type: 3}
-  - {fileID: 2534964839176971238, guid: 05ed51ebd403f2f42a4ae3775ee5beef, type: 3}
+  - {fileID: 7262956993760990891, guid: 546453e5a2230d547b7b5d65f27e6331, type: 3}
+  - {fileID: 7233506418509235627, guid: 5a892c27507b0b74bb708e2cd5e30a95, type: 3}
+  - {fileID: 5852977447195995195, guid: 08dae7210f9216242a0c3ed6284e8612, type: 3}
   circuitVariants:
-  - {fileID: 6994278153409234053, guid: 84498db312a79a44a8e09d9443948cd5, type: 3}
-  - {fileID: 982707535978235877, guid: 8cc4d4648b1765b4889353fec84edb9e, type: 3}
+  - {fileID: 7644855479038527004, guid: b5c12635e1e51bd44823dc3c6fd9eba4, type: 3}
+  - {fileID: 1330125631714119511, guid: fd9efd1339d6937448e34e62640f6621, type: 3}
   organicVariants:
-  - {fileID: 5670966607213774925, guid: 89e5487b4a4ed334f9fea94369e3b93f, type: 3}
-  - {fileID: 4013648347894968559, guid: 29592b452790af647b944bcae9f8ee2b, type: 3}
-  - {fileID: -5208353097191369872, guid: 29592b452790af647b944bcae9f8ee2b, type: 3}
---- !u!65 &241882185964345278
-BoxCollider:
+  - {fileID: 7924956229142393938, guid: 9729d7916e579264b88ebaafa9729a4b, type: 3}
+  - {fileID: 5884096814905321729, guid: 97ae4acfac07bd14a962c26d607749fc, type: 3}
+  - {fileID: 4501373869008506436, guid: 39ea67c62c091fa469f61be91f50a89c, type: 3}
+--- !u!135 &9075993755832950866
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -161,9 +160,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Radius: 0.11
   m_Center: {x: 0, y: 0, z: 0}

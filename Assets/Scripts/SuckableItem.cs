@@ -10,11 +10,11 @@ public class SuckableItem : MonoBehaviour
     public int itemValue = 10;
     
     [Header("Referencias")]
-    public MeshFilter meshHolder; // Lugar donde instanciar el modelo
-    public Mesh[] canVariants;
-    public Mesh[] bottleVariants;
-    public Mesh[] circuitVariants;
-    public Mesh[] organicVariants;
+    private GameObject currentInstance;
+    public GameObject[] canVariants;
+    public GameObject[] bottleVariants;
+    public GameObject[] circuitVariants;
+    public GameObject[] organicVariants;
     
     private Rigidbody rb;
     
@@ -22,13 +22,12 @@ public class SuckableItem : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.mass = itemWeight;
-        meshHolder = GetComponentInChildren<MeshFilter>();
         SpawnMesh();
     }
     
     void SpawnMesh()
     {
-        Mesh[] selectedSet = null;
+        GameObject[] selectedSet = null;
         itemType = (SuckableType)Random.Range(0, System.Enum.GetValues(typeof(SuckableType)).Length);
         int variantIndex = Random.Range(0, 5);
 
@@ -39,10 +38,13 @@ public class SuckableItem : MonoBehaviour
             case SuckableType.Circuit: selectedSet = circuitVariants; break;
             case SuckableType.Organic: selectedSet = organicVariants; break;
         }
+        
+        if (currentInstance != null)
+            Destroy(currentInstance);
 
         if (selectedSet != null && variantIndex >= 0 && variantIndex < selectedSet.Length)
         {
-            meshHolder.mesh = selectedSet[variantIndex];
+            currentInstance = Instantiate(selectedSet[variantIndex], transform);
         }
         else
         {

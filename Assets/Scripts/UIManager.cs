@@ -21,6 +21,15 @@ public class UIManager : MonoBehaviour
         {
             metalText.text = $"Puntos: {ResourceManager.Score}";
             componentText.text = $"Falta: {ResourceManager.MaxScore - ResourceManager.Score}";
+            if(ResourceManager.Score >= ResourceManager.MaxScore)
+            {
+                scoreText.text = "¡Has alcanzado el puntaje máximo!";
+                
+            }
+            else
+            {
+                scoreText.text = $"Puntos: {ResourceManager.Score}";
+            }
         }
         else
         {

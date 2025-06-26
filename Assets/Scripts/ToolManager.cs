@@ -6,6 +6,7 @@ public class ToolManager : MonoBehaviour
     private ToolI[] tools;
     public Transform controller;
     private int currentToolIndex = 0;
+    private KeyCode useKey = KeyCode.Space;
 
     void Start()
     {
@@ -22,11 +23,11 @@ public class ToolManager : MonoBehaviour
     void Update()
     {
         // Comienza a usar
-        if (Input.GetKeyDown(KeyCode.JoystickButton2))
+        if (Input.GetKeyDown(useKey))
             tools[currentToolIndex].use();
         
         // Termina de usar
-        if(Input.GetKeyUp(KeyCode.JoystickButton2))
+        if(Input.GetKeyUp(useKey))
         {
             tools[currentToolIndex].stopUse(); // Aquí podrías definir un método para detener la acción si es necesario
         }
