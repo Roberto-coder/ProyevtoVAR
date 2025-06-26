@@ -34,7 +34,7 @@ public class TransformableObject : MonoBehaviour
 
                 // Si Score ≥ 500, cambia de escena
                 if (ResourceManager.Score >= 300)
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("NextScene");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("TestRoom");
             }
             else
                 Debug.Log("Necesitas más materiales.");
