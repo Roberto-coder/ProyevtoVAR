@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
-public class NewPlayerMovement : MonoBehaviour
+public class NewPlayerMovement_Xbox : MonoBehaviour
 {
     [Header("Movimiento")]
     public float walkSpeed = 2f, runSpeed = 4f;
@@ -14,7 +14,7 @@ public class NewPlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Raycast Mano Derecha")]
-    public Transform handTransform; // ← Arrastra aquí la mano derecha
+    public Transform handTransform;
     public float rayDistance = 3f;
     public LayerMask treeLayer;
 
@@ -25,6 +25,10 @@ public class NewPlayerMovement : MonoBehaviour
     [Header("Audio")]
     public AudioSource footstepAudio;
     public float stepIntervalWalk = 0.6f, stepIntervalRun = 0.3f;
+
+    [Header("Sonidos")]
+    public AudioSource waterSound;
+    public AudioSource fertilizerSound;
 
     private CharacterController controller;
     private float verticalVelocity, stepTimer;
@@ -45,12 +49,11 @@ public class NewPlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        float h = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
-        float v = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
-        Vector2 rot = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
-        float rotH = rot.x;
-        float rotV = rot.y;
+        float rotH = Input.GetAxis("RightStickHorizontal");
+        float rotV = Input.GetAxis("RightStickVertical");
 
         transform.Rotate(Vector3.up, rotH * rotationSpeed * Time.deltaTime);
 
@@ -97,47 +100,38 @@ public class NewPlayerMovement : MonoBehaviour
 
     void HandleInteractions()
     {
-        // Raycast desde la mano
+        Debug.DrawRay(handTransform.position, handTransform.forward * rayDistance, Color.green);
+
         if (Physics.Raycast(handTransform.position, handTransform.forward, out RaycastHit hit, rayDistance, treeLayer))
         {
             TreeGrowth tree = hit.collider.GetComponent<TreeGrowth>();
             if (tree != null)
             {
-                // BOTÓN A - Interactuar con árbol seco
-                if (Input.GetKeyDown(KeyCode.JoystickButton0)) // A
+                if (Input.GetKeyDown(KeyCode.JoystickButton0)) // Botón A
                 {
                     if (tree.IsDry)
-                    {
                         tree.StartGrowth();
-                    }
                 }
 
-                // GATILLO DERECHO - Agua
                 if (Input.GetAxis("TriggersR") > 0.1f)
                 {
                     if (!aguaParticles.isPlaying) aguaParticles.Play();
-                    ScoreManager.Instance.AddPoints(5); // puntos por regar
+                    waterSound.Play();
+                    ScoreManager.Instance.AddPoints(5);
                 }
-                else
-                {
-                    if (aguaParticles.isPlaying) aguaParticles.Stop();
-                }
+                else if (aguaParticles.isPlaying) aguaParticles.Stop();
 
-                // GATILLO IZQUIERDO - Fertilizante
                 if (Input.GetAxis("TriggersL") > 0.1f)
                 {
                     if (!fertilizanteParticles.isPlaying) fertilizanteParticles.Play();
-                    ScoreManager.Instance.AddPoints(5); // puntos por fertilizar
+                    fertilizerSound.Play();
+                    ScoreManager.Instance.AddPoints(5);
                 }
-                else
-                {
-                    if (fertilizanteParticles.isPlaying) fertilizanteParticles.Stop();
-                }
+                else if (fertilizanteParticles.isPlaying) fertilizanteParticles.Stop();
             }
         }
         else
         {
-            // No apuntando a árbol, detener partículas si están activas
             if (aguaParticles.isPlaying) aguaParticles.Stop();
             if (fertilizanteParticles.isPlaying) fertilizanteParticles.Stop();
         }
@@ -147,5 +141,13 @@ public class NewPlayerMovement : MonoBehaviour
     {
         Vector3 start = transform.position + Vector3.up * 0.1f;
         return Physics.Raycast(start, Vector3.down, 0.3f, groundLayer);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (handTransform == null) return;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(handTransform.position, handTransform.position + handTransform.forward * rayDistance);
+        Gizmos.DrawSphere(handTransform.position + handTransform.forward * rayDistance, 0.05f);
     }
 }

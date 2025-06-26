@@ -7,6 +7,8 @@ public class PowerUpManager : MonoBehaviour
 
     public bool doublePoints = false;
     public bool speedBoost = false;
+    public AudioSource rainAudio; // Arrástralo desde Unity
+
 
     [Header("Lluvia")]
     public GameObject rainEffect; // Asigna el GameObject con partículas de lluvia
@@ -58,7 +60,10 @@ public class PowerUpManager : MonoBehaviour
         Debug.Log("Lluvia iniciada");
 
         if (rainEffect != null)
-            rainEffect.SetActive(true); // Activar partículas
+            rainEffect.SetActive(true);
+
+        if (rainAudio != null)
+            rainAudio.Play();
 
         float timer = 0f;
         while (timer < duration)
@@ -69,8 +74,12 @@ public class PowerUpManager : MonoBehaviour
         }
 
         if (rainEffect != null)
-            rainEffect.SetActive(false); // Desactivar lluvia
+            rainEffect.SetActive(false);
+
+        if (rainAudio != null)
+            rainAudio.Stop();
 
         Debug.Log("Lluvia terminada");
     }
+
 }
