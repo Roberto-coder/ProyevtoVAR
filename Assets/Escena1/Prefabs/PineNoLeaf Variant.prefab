@@ -86,7 +86,12 @@ MonoBehaviour:
   IsDry: 1
   growthDuration: 2
   points: 10
-  treesGreen: []
+  treesGreen:
+  - {fileID: 5923027766854268089, guid: 38ee5541ed4a65a40bf8e96fc8540b45, type: 3}
+  - {fileID: 7866989023760681377, guid: 4746c70c565e24f4fbda760b1e9fe049, type: 3}
+  - {fileID: 6243608058366145413, guid: e6eee77eedaa4964da310265972333a2, type: 3}
+  - {fileID: 6801921589221588567, guid: 7d52db145e2b94547924f56c37dc0fa2, type: 3}
+  - {fileID: 9218623201109832629, guid: 8e5676b44e607ab4cb835932b93c48cd, type: 3}
 --- !u!54 &7341284722154417612
 Rigidbody:
   m_ObjectHideFlags: 0

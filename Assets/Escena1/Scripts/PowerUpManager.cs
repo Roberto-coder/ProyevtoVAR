@@ -5,13 +5,14 @@ public class PowerUpManager : MonoBehaviour
 {
     public static PowerUpManager Instance;
 
+    [Header("Estados activos")]
     public bool doublePoints = false;
     public bool speedBoost = false;
-    public AudioSource rainAudio; // Arrástralo desde Unity
-
+    public bool isRaining = false;
 
     [Header("Lluvia")]
-    public GameObject rainEffect; // Asigna el GameObject con partículas de lluvia
+    public GameObject rainEffect;         // Partículas de lluvia
+    public AudioSource rainAudio;         // Sonido de lluvia
     public float lluviaPuntosIntervalo = 1f;
     public int puntosPorSegundo = 2;
 
@@ -26,13 +27,13 @@ public class PowerUpManager : MonoBehaviour
         switch (type)
         {
             case PowerUpType.DoublePoints:
-                StartCoroutine(ApplyDoublePoints(duration));
+                if (!doublePoints) StartCoroutine(ApplyDoublePoints(duration));
                 break;
             case PowerUpType.SpeedBoost:
-                StartCoroutine(ApplySpeedBoost(duration));
+                if (!speedBoost) StartCoroutine(ApplySpeedBoost(duration));
                 break;
             case PowerUpType.Rain:
-                StartCoroutine(ApplyRain(duration));
+                if (!isRaining) StartCoroutine(ApplyRain(duration));
                 break;
         }
     }
@@ -40,46 +41,49 @@ public class PowerUpManager : MonoBehaviour
     private IEnumerator ApplyDoublePoints(float duration)
     {
         doublePoints = true;
-        Debug.Log("Puntos dobles activados");
+        Debug.Log(" Puntos dobles ACTIVADOS");
+
         yield return new WaitForSeconds(duration);
+
         doublePoints = false;
-        Debug.Log("Puntos dobles terminados");
+        Debug.Log(" Puntos dobles FINALIZADOS");
     }
 
     private IEnumerator ApplySpeedBoost(float duration)
     {
         speedBoost = true;
-        Debug.Log("Velocidad aumentada");
+        Debug.Log(" Velocidad aumentada");
+
         yield return new WaitForSeconds(duration);
+
         speedBoost = false;
-        Debug.Log("Velocidad normal");
+        Debug.Log(" Velocidad normal");
     }
 
     private IEnumerator ApplyRain(float duration)
     {
-        Debug.Log("Lluvia iniciada");
+        isRaining = true;
+        Debug.Log(" Lluvia iniciada");
 
-        if (rainEffect != null)
-            rainEffect.SetActive(true);
-
-        if (rainAudio != null)
-            rainAudio.Play();
+        if (rainEffect != null) rainEffect.SetActive(true);
+        if (rainAudio != null && !rainAudio.isPlaying) rainAudio.Play();
 
         float timer = 0f;
         while (timer < duration)
         {
-            ScoreManager.Instance.AddPoints(puntosPorSegundo);
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.AddPoints(puntosPorSegundo);
+            }
+
             yield return new WaitForSeconds(lluviaPuntosIntervalo);
             timer += lluviaPuntosIntervalo;
         }
 
-        if (rainEffect != null)
-            rainEffect.SetActive(false);
+        if (rainEffect != null) rainEffect.SetActive(false);
+        if (rainAudio != null && rainAudio.isPlaying) rainAudio.Stop();
 
-        if (rainAudio != null)
-            rainAudio.Stop();
-
-        Debug.Log("Lluvia terminada");
+        Debug.Log(" Lluvia finalizada");
+        isRaining = false;
     }
-
 }

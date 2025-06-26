@@ -62,40 +62,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 342048393001582481}
-    - targetCorrespondingSourceObject: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -3304555555135502984}
     - targetCorrespondingSourceObject: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3426421942972188677}
+    - targetCorrespondingSourceObject: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1862893893344124696}
   m_SourcePrefab: {fileID: 100100000, guid: e289bf5debb17f6459818c207d781953, type: 3}
 --- !u!1 &7866989023760681377 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4661435515762455780, guid: e289bf5debb17f6459818c207d781953, type: 3}
   m_PrefabInstance: {fileID: 3286948442283064645}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &342048393001582481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7866989023760681377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: def70c366e42e7f47b608c7fc2a92ab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsDry: 1
-  growthDuration: 2
-  points: 10
-  treesGreen:
-  - {fileID: 7866989023760681377}
-  - {fileID: 5923027766854268089, guid: 38ee5541ed4a65a40bf8e96fc8540b45, type: 3}
-  - {fileID: 6243608058366145413, guid: e6eee77eedaa4964da310265972333a2, type: 3}
-  - {fileID: 6801921589221588567, guid: 7d52db145e2b94547924f56c37dc0fa2, type: 3}
-  - {fileID: 9218623201109832629, guid: 8e5676b44e607ab4cb835932b93c48cd, type: 3}
 --- !u!65 &-3304555555135502984
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -139,8 +118,21 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1862893893344124696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7866989023760681377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e42576cd635e7418ea696eec6963e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growDuration: 1.5
