@@ -40,7 +40,7 @@ public class SuckableItemSpawner : MonoBehaviour
     {
         float x = Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2);
         float z = Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2);
-        float y = 10f; // terreno plano, ajustar si tienes altura
+        float y = 1f; // terreno plano, ajustar si tienes altura
 
         return new Vector3(x, y, z) + transform.position;
     }

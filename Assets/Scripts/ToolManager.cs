@@ -6,7 +6,9 @@ public class ToolManager : MonoBehaviour
     private ToolI[] tools;
     public Transform controller;
     private int currentToolIndex = 0;
-    private KeyCode useKey = KeyCode.Space;
+
+    private float inputCooldown = 0.5f;
+    private float lastSwitchTime = 0f;
 
     void Start()
     {
@@ -16,28 +18,38 @@ public class ToolManager : MonoBehaviour
             tools[i] = toolObjects[i].GetComponent<ToolI>();
             toolObjects[i].SetActive(i == currentToolIndex);
         }
+
         transform.SetParent(controller);
         transform.localPosition = Vector3.zero;
     }
 
     void Update()
     {
-        // Comienza a usar
-        if (Input.GetKeyDown(useKey))
+        // Comenzar a usar herramienta con Botón X (OVRInput.Button.Two)
+        if (OVRInput.GetDown(OVRInput.Button.Two))
             tools[currentToolIndex].use();
-        
-        // Termina de usar
-        if(Input.GetKeyUp(useKey))
-        {
-            tools[currentToolIndex].stopUse(); // Aquí podrías definir un método para detener la acción si es necesario
-        }
 
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0f)
+        // Detener herramienta al soltar Botón X
+        if (OVRInput.GetUp(OVRInput.Button.Two))
+            tools[currentToolIndex].stopUse();
+
+        // Cambiar herramienta con Joystick derecho arriba/abajo
+        float scroll = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y;
+
+        if (Time.time - lastSwitchTime > inputCooldown)
         {
-            int direction = scroll > 0 ? 1 : -1;
-            int nextIndex = (currentToolIndex + direction + tools.Length) % tools.Length;
-            this.SwitchTool(nextIndex);
+            if (scroll > 0.5f)
+            {
+                int nextIndex = (currentToolIndex + 1) % tools.Length;
+                SwitchTool(nextIndex);
+                lastSwitchTime = Time.time;
+            }
+            else if (scroll < -0.5f)
+            {
+                int prevIndex = (currentToolIndex - 1 + tools.Length) % tools.Length;
+                SwitchTool(prevIndex);
+                lastSwitchTime = Time.time;
+            }
         }
     }
 

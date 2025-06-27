@@ -12,7 +12,7 @@ public class MasterController : MonoBehaviour
         if (currentTool != null && enableAutoPickup)
         {
             // Bot�n B suelta la herramienta
-            if (Input.GetKeyDown(KeyCode.JoystickButton1))
+            if (OVRInput.GetDown(OVRInput.Button.Two))
             {
                 ((ToolI)currentTool).OnDrop();
                 currentTool = null;
