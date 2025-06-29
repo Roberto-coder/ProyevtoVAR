@@ -13,7 +13,7 @@ public class TransformableObject : MonoBehaviour
 
     void Update()
     {
-        if (playerNear && OVRInput.GetDown(OVRInput.Button.One)) // boton A en Quest
+        if (playerNear && Input.GetKeyDown(KeyCode.JoystickButton0)) // boton A en Quest
         {
             if (ResourceManager.TrySpendResources(requiredMetal, requiredComponents))
             {
@@ -34,7 +34,7 @@ public class TransformableObject : MonoBehaviour
 
                 // Si Score ≥ 500, cambia de escena
                 if (ResourceManager.Score >= 300)
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("TestRoom");
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("NextScene");
             }
             else
                 Debug.Log("Necesitas más materiales.");

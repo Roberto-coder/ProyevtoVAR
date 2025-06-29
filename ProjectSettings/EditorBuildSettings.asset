@@ -11,15 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: b4b39520fb189454c8dd2e76cedbc891
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Escena1.unity
     guid: ee5444fb3759ae546b062644c1f22cf1
   - enabled: 1
     path: Assets/Scenes/TestRoom.unity
     guid: d841280e5ae80534091b9a86a67bcfba
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SceneProject.unity
     guid: 7f313356caddc214ab817cb58463f957
+  - enabled: 1
+    path: Assets/Scenes/SceneProject4.unity
+    guid: d88f6ada14b20ac45ad3ca365f00be0d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 33fb2b13f11c74f46ba9b65af0800301, type: 2}

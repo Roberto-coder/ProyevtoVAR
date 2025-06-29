@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public bool isVaccumActive = false;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI metalText;
     public TextMeshProUGUI componentText;
@@ -17,16 +16,8 @@ public class UIManager : MonoBehaviour
 
     public void RefreshUI()
     {
-        if (isVaccumActive)
-        {
-            metalText.text = $"Puntos: {ResourceManager.Score}";
-            componentText.text = $"Falta: {ResourceManager.MaxScore - ResourceManager.Score}";
-        }
-        else
-        {
-            scoreText.text = $"SCORE: {ResourceManager.Score}";
-            metalText.text = $"Metal: {ResourceManager.Metal}";
-            componentText.text = $"Componentes: {ResourceManager.Components}";            
-        }
+        scoreText.text = $"SCORE: {ResourceManager.Score}";
+        metalText.text = $"Metal: {ResourceManager.Metal}";
+        componentText.text = $"Componentes: {ResourceManager.Components}";
     }
 }

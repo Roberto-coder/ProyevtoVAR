@@ -29,8 +29,7 @@ public class SuckableItemSpawner : MonoBehaviour
                 Vector3 spawnPos = islandCenter + offset;
 
                 GameObject instance = Instantiate(suckablePrefab, spawnPos, Quaternion.identity);
-                ResourceManager.MaxScore += 10; // Aumenta el puntaje máximo por cada objeto generado
-                
+
                 // La aleatoriedad del tipo y modelo ocurre dentro del prefab (como en tu versión previa)
             }
         }

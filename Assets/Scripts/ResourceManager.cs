@@ -6,7 +6,6 @@ public class ResourceManager : MonoBehaviour
     public static int Metal { get; private set; }
     public static int Components { get; private set; }
     public static int Score { get; private set; }
-    public static int MaxScore { get; set; } = 1000; // Define un puntaje máximo si es necesario
 
     void Awake()
     {
@@ -19,6 +18,7 @@ public class ResourceManager : MonoBehaviour
         Metal += metal;
         Components += comps;
         ResourceManager.UpdateScore(0);
+
     }
 
     public static void UpdateScore(int delta)

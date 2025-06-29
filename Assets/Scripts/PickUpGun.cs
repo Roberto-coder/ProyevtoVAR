@@ -1,11 +1,9 @@
 using UnityEngine;
 
-public class PickUpGun : MonoBehaviour, ToolI
+public class PickUpGun : MonoBehaviour
 {
-    public string ToolName => "PickUpGun";
-    public ParticleSystem destroyEffect;
-    public Transform controller { get; set; }
-    public bool isPicked { get; set; }
+    public enum ToolType { Desarmador, Martillo, Soplete }
+    public ToolType toolType;
 
     [Space]
     public int maxHits = 3;
@@ -13,6 +11,8 @@ public class PickUpGun : MonoBehaviour, ToolI
     public int componentGain = 0;
 
     GameObject startTrans;
+    Transform controller;
+    bool isPicked = false;
     int hitCount = 0;
 
     void Start()
@@ -40,26 +40,6 @@ public class PickUpGun : MonoBehaviour, ToolI
 
     public bool IsPicked() => isPicked;
 
-    public void use(Collider other)
-    {
-        hitCount++;
-        if (hitCount >= maxHits)
-        {
-            ResourceManager.AddResources(metalGain, componentGain);
-            if (destroyEffect != null)
-            {
-                Instantiate(destroyEffect, other.transform.position, Quaternion.identity);
-                destroyEffect.Play(); // Opcional si ya es standalone
-            }
-            Destroy(other.gameObject);
-            hitCount = 0;
-        }
-    }
-
-    public void stopUse()
-    {
-    }
-
     public void OnPickup(Transform parent)
     {
         isPicked = true;
@@ -79,7 +59,13 @@ public class PickUpGun : MonoBehaviour, ToolI
     {
         if (isPicked && (other.CompareTag("metal") || other.CompareTag("electronico")))
         {
-            use(other);
+            hitCount++;
+            if (hitCount >= maxHits)
+            {
+                ResourceManager.AddResources(metalGain, componentGain);
+                Destroy(other.gameObject);
+                hitCount = 0;
+            }
         }
     }
 }

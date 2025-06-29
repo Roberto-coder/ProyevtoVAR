@@ -9,19 +9,18 @@ public class GameTimer : MonoBehaviour
     public float totalTime = 180f; // 3 minutos
 
     [Header("UI Final")]
-    public TMP_Text finalScoreText;        // Referencia al TextMeshPro para mostrar el puntaje
-    public Canvas finalCanvas;             // Canvas que contiene el puntaje final
-    public string nextSceneName = "TestRoom"; // Nombre de la siguiente escena
+    public TMP_Text finalScoreText;
+    public Canvas finalCanvas;
 
     [Header("Audio Opcional")]
-    public AudioSource backgroundMusic; // Si tienes música que debe detenerse al finalizar
+    public AudioSource backgroundMusic;
 
     private bool gameEnded = false;
 
     void Start()
     {
         if (finalCanvas != null)
-            finalCanvas.gameObject.SetActive(false); // Oculta el canvas final al inicio
+            finalCanvas.gameObject.SetActive(false);
     }
 
     void Update()
@@ -47,16 +46,31 @@ public class GameTimer : MonoBehaviour
         {
             finalCanvas.gameObject.SetActive(true);
 
-            if (finalScoreText != null)
-                finalScoreText.text = "Puntuacion Final: " + ScoreManager.Instance.currentScore;
+            if (finalScoreText != null && ScoreManager.Instance != null)
+                finalScoreText.text = "Puntuación Final: " + ScoreManager.Instance.currentScore;
         }
 
-        // Espera 5 segundos antes de cambiar de escena
         Invoke(nameof(LoadNextScene), 5f);
     }
 
     void LoadNextScene()
     {
-        SceneManager.LoadScene(nextSceneName);
+        int nextSceneIndex = 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            try
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError(" Error al cargar la escena por índice: " + ex.Message);
+            }
+        }
+        else
+        {
+            Debug.LogWarning(" No hay una escena en el índice: " + nextSceneIndex);
+        }
     }
 }

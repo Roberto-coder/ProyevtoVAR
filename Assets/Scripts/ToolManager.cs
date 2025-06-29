@@ -4,11 +4,7 @@ public class ToolManager : MonoBehaviour
 {
     public GameObject[] toolObjects; // GameObjects que contienen los scripts
     private ToolI[] tools;
-    public Transform controller;
     private int currentToolIndex = 0;
-
-    private float inputCooldown = 0.5f;
-    private float lastSwitchTime = 0f;
 
     void Start()
     {
@@ -18,38 +14,26 @@ public class ToolManager : MonoBehaviour
             tools[i] = toolObjects[i].GetComponent<ToolI>();
             toolObjects[i].SetActive(i == currentToolIndex);
         }
-
-        transform.SetParent(controller);
-        transform.localPosition = Vector3.zero;
     }
 
     void Update()
     {
-        // Comenzar a usar herramienta con Botón X (OVRInput.Button.Two)
-        if (OVRInput.GetDown(OVRInput.Button.Two))
+        // Comienza a usar
+        if (Input.GetButtonDown("Fire1"))
             tools[currentToolIndex].use();
-
-        // Detener herramienta al soltar Botón X
-        if (OVRInput.GetUp(OVRInput.Button.Two))
-            tools[currentToolIndex].stopUse();
-
-        // Cambiar herramienta con Joystick derecho arriba/abajo
-        float scroll = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y;
-
-        if (Time.time - lastSwitchTime > inputCooldown)
+        
+        // Termina de usar
+        if(Input.GetButtonUp("Fire1"))
         {
-            if (scroll > 0.5f)
-            {
-                int nextIndex = (currentToolIndex + 1) % tools.Length;
-                SwitchTool(nextIndex);
-                lastSwitchTime = Time.time;
-            }
-            else if (scroll < -0.5f)
-            {
-                int prevIndex = (currentToolIndex - 1 + tools.Length) % tools.Length;
-                SwitchTool(prevIndex);
-                lastSwitchTime = Time.time;
-            }
+            tools[currentToolIndex].stopUse(); // Aquí podrías definir un método para detener la acción si es necesario
+        }
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0f)
+        {
+            int direction = scroll > 0 ? 1 : -1;
+            int nextIndex = (currentToolIndex + direction + tools.Length) % tools.Length;
+            this.SwitchTool(nextIndex);
         }
     }
 

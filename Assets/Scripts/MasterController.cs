@@ -2,30 +2,25 @@ using UnityEngine;
 
 public class MasterController : MonoBehaviour
 {
-    public bool enableAutoPickup = true;
     public Transform gripAnchor;
     public float pickupRange = 0.2f;
-    public MonoBehaviour currentTool;
+
+    private PickUpGun currentTool;
 
     void Update()
     {
-        if (currentTool != null && enableAutoPickup)
+        if (currentTool != null)
         {
-            // Botï¿½n B suelta la herramienta
-            if (OVRInput.GetDown(OVRInput.Button.Two))
+            // Botón B suelta la herramienta
+            if (Input.GetKeyDown(KeyCode.JoystickButton1))
             {
-                ((ToolI)currentTool).OnDrop();
+                currentTool.OnDrop();
                 currentTool = null;
             }
         }
         else
         {
-            if (enableAutoPickup)
-                AutoPickup();
-            else
-            {
-                ((ToolI)currentTool).OnPickup(gripAnchor);
-            }
+            AutoPickup();
         }
     }
 
