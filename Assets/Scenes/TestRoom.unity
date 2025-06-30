@@ -12761,6 +12761,38 @@ PrefabInstance:
       propertyPath: isVaccumActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0543
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0256
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1618
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024744207361597565, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 4469802645343734279, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
       propertyPath: m_LocalPosition.x
       value: -118.4
@@ -12804,6 +12836,10 @@ PrefabInstance:
     - target: {fileID: 5222745198293935124, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
       propertyPath: m_Name
       value: PlayerVR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6212141890621789642, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

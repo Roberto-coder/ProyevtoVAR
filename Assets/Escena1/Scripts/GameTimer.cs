@@ -6,7 +6,7 @@ using TMPro;
 public class GameTimer : MonoBehaviour
 {
     [Header("Configuración de Tiempo")]
-    public float totalTime = 180f; // 3 minutos
+    public float totalTime = 60f; // 3 minutos
 
     [Header("UI Final")]
     public TMP_Text finalScoreText;
@@ -15,6 +15,7 @@ public class GameTimer : MonoBehaviour
     [Header("Audio Opcional")]
     public AudioSource backgroundMusic;
 
+    public SceneTransitionManager transitionManager;
     private bool gameEnded = false;
 
     void Start()
@@ -35,6 +36,7 @@ public class GameTimer : MonoBehaviour
         }
     }
 
+    [System.Obsolete]
     void EndGame()
     {
         gameEnded = true;
@@ -50,7 +52,8 @@ public class GameTimer : MonoBehaviour
                 finalScoreText.text = "Puntuación Final: " + ScoreManager.Instance.currentScore;
         }
 
-        Invoke(nameof(LoadNextScene), 5f);
+        transitionManager.SafeLoadScene(1);
+        //Invoke(nameof(LoadNextScene), 5f);
     }
 
     void LoadNextScene()

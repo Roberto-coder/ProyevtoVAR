@@ -1,4 +1,4 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
@@ -166,7 +166,7 @@ public class NewPlayerMovement_Keyboard : MonoBehaviour
         Gizmos.DrawSphere(handTransform.position + handTransform.forward * rayDistance, 0.05f);
     }
 }
-*/
+/*
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -328,3 +328,4 @@ public class NewPlayerMovement_Meta : MonoBehaviour
         Gizmos.DrawSphere(handTransform.position + handTransform.forward * rayDistance, 0.05f);
     }
 }
+*/

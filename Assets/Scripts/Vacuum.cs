@@ -5,24 +5,26 @@ using UnityEngine;
 public class Vacuum : MonoBehaviour, ToolI
 {
     public string ToolName => "Vacuum";
-    
+    public Transform controller { get; set; }
+    public bool isPicked { get; set; }
+
     [Header("Zona de Succión y Captura")]
     public Collider suctionZone; // asignar el MeshCollider
     public Collider destroyZone; // asignar el BoxCollider
-    
+
     [Header("Configuración de Succión")]
     public float suctionForce = 50f;
     public Transform suctionPoint;
 
     public bool isSucking = false;
-    
+
     void Start()
     {
         // Asegurar que los colliders están en modo trigger
         suctionZone.isTrigger = true;
         destroyZone.isTrigger = true;
     }
-    
+
     void Update()
     {
         if (isSucking)
@@ -48,23 +50,35 @@ public class Vacuum : MonoBehaviour, ToolI
             }
         }
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter: " + other.tag);
     }
-    
+
     // Activar succión (ej. mantener clic izquierdo)
-    public void use()
+    public void use(Collider other = null)
     {
         Debug.Log("Usando la aspiradora.");
         isSucking = true;
     }
-    
-    // Desactivar succión (ej. soltar clic izquierdo)
+
     public void stopUse()
     {
         Debug.Log("Dejando de usar la aspiradora.");
         isSucking = false;
+    }
+
+    public void OnPickup(Transform parent)
+    {
+        isPicked = true;
+    }
+
+    public void OnDrop()
+    { }
+
+    public bool IsPicked()
+    {
+        return true;
     }
 }
