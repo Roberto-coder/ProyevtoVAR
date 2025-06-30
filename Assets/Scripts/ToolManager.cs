@@ -17,6 +17,7 @@ public class ToolManager : MonoBehaviour
         }
         transform.SetParent(controller);
         transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
     }
 
     void Update()
