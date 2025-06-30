@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8254202490671687643}
   - component: {fileID: 4845954570973104945}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Prefab_Bag_G
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 77687c14f5205fd43a299f14dcb19ac3, type: 2}
     - target: {fileID: -4487099438119861699, guid: ccd5354584729a647b392399d03c3bc4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ccd5354584729a647b392399d03c3bc4, type: 3}
       propertyPath: m_Name
@@ -117,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ccd5354584729a647b392399d03c3bc4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7333549310439260701, guid: ccd5354584729a647b392399d03c3bc4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

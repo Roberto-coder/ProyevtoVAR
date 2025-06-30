@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8870949190126576617}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prefab_Trashbag_2
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 49dbf6b31bb07594083420a579eb1c36, type: 2}
+    - target: {fileID: -1824216106404859719, guid: 8cc4d4648b1765b4889353fec84edb9e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -1246454501348950745, guid: 8cc4d4648b1765b4889353fec84edb9e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -107,6 +111,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8cc4d4648b1765b4889353fec84edb9e, type: 3}
       propertyPath: m_Name
       value: Mesh_Bag2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8cc4d4648b1765b4889353fec84edb9e, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

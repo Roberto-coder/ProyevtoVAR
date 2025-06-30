@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8032039605177364549}
   - component: {fileID: -7039077996461213431}
   - component: {fileID: -2833639306456132349}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prefab_BotteCap
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 86faa0d2a38fc3945a0007aa167db144, type: 3}
       propertyPath: m_Name
       value: Mesh_BottleCap
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 86faa0d2a38fc3945a0007aa167db144, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

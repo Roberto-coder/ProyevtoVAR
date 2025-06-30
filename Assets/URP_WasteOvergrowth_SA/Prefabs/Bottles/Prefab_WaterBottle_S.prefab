@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 197436404882216784}
   - component: {fileID: -2280207888774980665}
   - component: {fileID: 1969726950073701391}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prefab_WaterBottle_S
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,6 +91,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197436404882216784}
     m_Modifications:
+    - target: {fileID: 2166239169535117994, guid: 8c73ee66eb0a2644e8f76952547b360e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8032039605177364549, guid: 8c73ee66eb0a2644e8f76952547b360e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.92929
@@ -146,6 +150,14 @@ PrefabInstance:
     - target: {fileID: 8603840721837392886, guid: 8c73ee66eb0a2644e8f76952547b360e, type: 3}
       propertyPath: m_Name
       value: Prefab_BotteCap
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603840721837392886, guid: 8c73ee66eb0a2644e8f76952547b360e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603840721837392886, guid: 8c73ee66eb0a2644e8f76952547b360e, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -212,6 +224,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8554d54535205974d883ba4c4e25d85a, type: 3}
       propertyPath: m_Name
       value: Mesh_WaterBottle_S
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8554d54535205974d883ba4c4e25d85a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

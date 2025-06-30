@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8386619459735358368}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prefab_SodaBottle_L_Crushed
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: af684f98ee2d10545b098651c1ac088f, type: 3}
       propertyPath: m_Name
       value: Mesh_SodaBottle_L_Crushed
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: af684f98ee2d10545b098651c1ac088f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

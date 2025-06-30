@@ -11,7 +11,6 @@ public class Vacuum : MonoBehaviour, ToolI
 
     [Header("Zona de Succión y Captura")]
     public Collider suctionZone; // asignar el MeshCollider
-    public Collider destroyZone; // asignar el BoxCollider
 
     [Header("Configuración de Succión")]
     public float suctionForce = 50f;
@@ -27,48 +26,103 @@ public class Vacuum : MonoBehaviour, ToolI
     private Coroutine fadeOutCoroutine;
     private float defaultVolume = 1f;
     public float fadeDuration = 0.8f;
+    
+    // 🧠 Punto 5: buffer para OverlapBoxNonAlloc
+    private Collider[] overlapBuffer = new Collider[20];
 
     void Start()
     {
         // Asegurar que los colliders están en modo trigger
         suctionZone.isTrigger = true;
-        destroyZone.isTrigger = true;
         
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
         defaultVolume = audioSource.volume;
     }
+    
+    void OnDisable()
+    {
+        Debug.LogWarning("Vacuum DESACTIVADO.");
+    }
+    void OnEnable()
+    {
+        Debug.Log("Vacuum ACTIVADO.");
+    }
+    
+    // 🧠 Punto 3: Visualización de la zona de succión
+    void OnDrawGizmos()
+    {
+        if (suctionZone != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.matrix = suctionZone.transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(Vector3.zero, suctionZone.bounds.size);
+        }
+    }
 
     void Update()
     {
         if (isSucking)
         {
-            Collider[] hits = Physics.OverlapBox(
+            int hitCount = Physics.OverlapBoxNonAlloc(
                 suctionZone.bounds.center,
                 suctionZone.bounds.extents,
+                overlapBuffer,
                 suctionZone.transform.rotation
             );
 
-            foreach (var hit in hits)
-            {
-                if (!hit.CompareTag("Suckable")) continue;
-                SuckableItem item = hit.GetComponent<SuckableItem>();
-                if (item == null || !item.gameObject.activeInHierarchy) continue;
+            bool soloYo = true;
+            bool alMenosUnoValido = false;
 
-                Rigidbody rb = item.GetComponent<Rigidbody>();
-                if (rb)
+            for (int i = 0; i < hitCount; i++)
+            {
+                Collider hit = overlapBuffer[i];
+
+                if (hit == suctionZone)
                 {
-                    Vector3 dir = (suctionPoint.position - rb.position).normalized;
-                    rb.AddForce(dir * (suctionForce), ForceMode.Force);
+                    Debug.Log("Detectado el propio collider de la aspiradora.");
+                    continue;
                 }
+
+                soloYo = false;
+
+                Debug.Log($"Detectado: {hit.name} | Tag: {hit.tag} | Activo: {hit.gameObject.activeSelf}");
+
+                if (!hit.CompareTag("Suckable")) continue;
+
+                SuckableItem item = hit.GetComponent<SuckableItem>();
+                Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+                if (item == null || rb == null || !item.gameObject.activeInHierarchy)
+                {
+                    Debug.LogWarning($"Objeto {hit.name} tiene componentes faltantes o está inactivo.");
+                    continue;
+                }
+
+                alMenosUnoValido = true;
+
+                Vector3 dir = (suctionPoint.position - rb.position).normalized;
+                rb.AddForce(dir * suctionForce, ForceMode.Force);
+            }
+
+            // 🚨 Diagnóstico post-evaluación
+            if (soloYo)
+            {
+                Debug.LogWarning("⚠️ Sólo el propio collider fue detectado. Puede que no haya más objetos válidos.");
+            }
+
+            if (!alMenosUnoValido && hitCount > 0)
+            {
+                Debug.LogWarning("⚠️ Se detectaron objetos, pero ninguno es válido para succión. Verifica sus tags, colliders y estado activo.");
             }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter: " + other.tag);
+        Debug.Log("Objeto en zona de aspirado: " + other.tag);
+        
     }
 
     // Activar succión (ej. mantener clic izquierdo)

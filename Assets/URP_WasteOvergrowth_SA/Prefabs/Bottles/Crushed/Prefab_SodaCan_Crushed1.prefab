@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5441006837568261448}
   m_Layer: 3
   m_Name: Prefab_SodaCan_Crushed1
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

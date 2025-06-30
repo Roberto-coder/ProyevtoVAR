@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7254889642574862046}
   - component: {fileID: -1241486156252652769}
   - component: {fileID: 8254074526465506298}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prefab_SodaCup
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,6 +163,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5d9a6cba1ac11b24f847ac26b0850b3a, type: 3}
       propertyPath: m_Name
       value: Mesh_SodaCup
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5d9a6cba1ac11b24f847ac26b0850b3a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7347921705591098537, guid: 5d9a6cba1ac11b24f847ac26b0850b3a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

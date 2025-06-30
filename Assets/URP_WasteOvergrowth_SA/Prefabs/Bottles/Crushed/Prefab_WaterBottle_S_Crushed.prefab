@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1495910517074145531}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Prefab_WaterBottle_S_Crushed
-  m_TagString: Untagged
+  m_TagString: Suckable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b4143b0824a933d4ba74f757220517c2, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
