@@ -132,7 +132,7 @@ MonoBehaviour:
   itemWeight: 1
   itemValue: 10
   canVariants:
-  - {fileID: 295543366600241890, guid: cd8c7024c8812e44ebf0d8443e27721e, type: 3}
+  - {fileID: 7311506559397099704, guid: 28487c63b217ac342935299e9014381e, type: 3}
   - {fileID: 3564632919824148345, guid: 30858ef0644983d49814b826a7d53d39, type: 3}
   bottleVariants:
   - {fileID: 7262956993760990891, guid: 546453e5a2230d547b7b5d65f27e6331, type: 3}
