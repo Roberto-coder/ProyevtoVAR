@@ -12755,7 +12755,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2783161570703845071, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.2
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3908709714428093066, guid: 5ae1f54a65b95d948b983ae9a60e9e61, type: 3}
       propertyPath: isVaccumActive
