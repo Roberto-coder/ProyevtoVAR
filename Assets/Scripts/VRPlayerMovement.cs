@@ -35,18 +35,18 @@ public class VRPlayerMovement : MonoBehaviour
     void HandleMovement()
     {
         // Lectura de ejes del Xbox (configurados en Input Manager)
-        float h = Input.GetAxis("Horizontal");
+        /*float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         float rotH = Input.GetAxis("RightStickHorizontal");
-        float rotV = Input.GetAxis("RightStickVertical");
+        float rotV = Input.GetAxis("RightStickVertical");*/
         
-        /*float h = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
+        float h = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).x;
         float v = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
 
         // Entrada de rotación (joystick derecho)
         Vector2 rot = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
         float rotH = rot.x;
-        float rotV = rot.y;*/
+        float rotV = rot.y;
 
         // Rotación en yaw (giro horizontal del personaje)
         transform.Rotate(Vector3.up, rotH * rotationSpeed * Time.deltaTime);
